@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = props =>
   <div>
-    <h1>Centauro EXP_</h1>
+    <h1>Centauro</h1>
   </div>;
 
 
