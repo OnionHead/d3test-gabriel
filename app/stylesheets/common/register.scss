@@ -2,6 +2,29 @@
   display: flex;
   flex-direction: column;
 
+  .mainHeader,
+  .mainFooter {
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+
+    strong {
+      font-size: 20px;
+    }
+  }
+
+  .mainFooter {
+    padding: 30px 50px;
+    background: #000;
+    color: #FFF;
+  }
+
+  h1 {
+    font-size: 40px;
+    text-align: center;
+    margin: 0 0 95px 0;
+  }
+
   .tabList {
     display: flex;
     flex-direction: row;
@@ -399,9 +422,25 @@
   }
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 990px) {
   .mainRegister {
+    .tabList {
+      .tab {
+        line-height: 75px;
+      }
+    }
+
     .tabContainer {
+      .infoContainer {
+        .infoForm {
+          padding: 25px;
+
+          .closeInfo {
+            right: 25px;
+          }
+        }
+      }
+
       .formContainer {
         flex-direction: column;
         padding: 45px 25px 23px 25px;

@@ -81,6 +81,7 @@ class Register extends React.Component {
     this.changeField = this.changeField.bind(this)
     this.checkFields = this.checkFields.bind(this)
     this.nextFormStep = this.nextFormStep.bind(this)
+    this.submitForm = this.submitForm.bind(this)
   }
 
   changeField(event){
@@ -138,7 +139,8 @@ class Register extends React.Component {
   }
 
   checkFields(fieldName){
-    let hasErros = false;
+    var hasErrors = false;
+    let changedField = [];
     let checkers = {
       phone: function(value){
         let errors = '' 
@@ -159,10 +161,10 @@ class Register extends React.Component {
       }
     }
 
-    let changedField = this.state.fields.map(function(field){
+    this.state.fields.forEach(function(field){
       let nStateData = field
 
-      if(this.fieldName === field.name || this.fieldName === true){
+      if(fieldName === field.name || fieldName === true){
         if(field.required){
           let isValidField = checkers[field.required](field.value)
           nStateData.errors = (!isValidField) ? 'ok-data' : isValidField ;
@@ -173,16 +175,16 @@ class Register extends React.Component {
       
       if(field.errors === 'ok-data'){
         nStateData.errors = (field.value === '') ? '' : 'ok-data' ;
-      }else{
-        if(!hasErros){
-          hasErros = true
-        }
       }
 
-      return nStateData
-    }, {fieldName: fieldName})
+      if(!hasErrors && nStateData.errors !== 'ok-data' && nStateData.errors !== ''){
+        hasErrors = true
+      }
 
-    if(hasErros){
+      changedField.push(nStateData)
+    })
+
+    if(hasErrors){
       document.querySelector('.infoContainer').classList.add('showInfo')
     }else{
       document.querySelector('.infoContainer').classList.remove('showInfo')
@@ -190,25 +192,31 @@ class Register extends React.Component {
 
     this.setState({
       fields: changedField
-    }, function(){
-      if(fieldName === true){
-        return hasErros
-      }
     })
+
+    if(fieldName === true){
+      return hasErrors
+    }
   }
 
   nextFormStep(tabIndex){
+    let hasErrors = this.checkFields(true)
+
+    console.log(hasErrors)
+
+    if(!hasErrors){
       this.setState({
         currentTab: tabIndex
       })
+    }
   }
 
   submitForm(event){
     event.preventDefault()
 
-    let hasErros = this.checkFields(true)
+    let hasErrors = this.checkFields(true)
 
-    if(!hasErros){
+    if(hasErros){
       this.nextFormStep(3)
     }
   }
@@ -237,6 +245,13 @@ class Register extends React.Component {
   render() {
     return (
       <div className={'mainRegister'}>
+        <header className={'mainHeader'}>
+          <strong>EXP_</strong>
+          <strong>Karol com 5K_</strong>
+        </header>
+        <h1>
+          Cadastro
+        </h1>
         <ul className={'tabList'}>
           <li className={(this.state.currentTab === 1) ? 'tab active' : 'tab'}>1</li>
           <li className={(this.state.currentTab === 2) ? 'tab active' : 'tab'}>2</li>
@@ -245,7 +260,7 @@ class Register extends React.Component {
         </ul>
         <div className={'tabContainer'}>
         <div className={(this.state.currentTab === 1) ? 'tabContent active' : 'tabContent'}>
-            tab 1
+            <h1>tab 1</h1>
           </div>
           <div className={(this.state.currentTab === 2) ? 'tabContent active' : 'tabContent'}>
             <div className={'infoContainer'}>
@@ -368,8 +383,8 @@ class Register extends React.Component {
                     </div>
                   </div>
                   <div className={'formFieldSet'}>
-                    <button className={'btnNavTabs back'} onClick={() => {this.nextFormStep(1)}}>Voltar</button>
-                    <button className={'btnNavTabs next'} onClick={() => {this.nextFormStep(3)}}>Continuar</button>
+                    <div className={'btnNavTabs back'} onClick={() => {this.nextFormStep(1)}}>Voltar</div>
+                    <div className={'btnNavTabs next'} onClick={() => {this.nextFormStep(3)}}>Continuar</div>
                   </div>
                 </form>
               </div>
@@ -403,12 +418,16 @@ class Register extends React.Component {
             </div>
           </div>
           <div className={(this.state.currentTab === 3) ? 'tabContent active' : 'tabContent'}>
-            tab 3
+            <h1>tab 3</h1>
           </div>
           <div className={(this.state.currentTab === 4) ? 'tabContent active' : 'tabContent'}>
-            tab 4
+            <h1>tab 4</h1>
           </div>
         </div>
+        <footer className={'mainFooter'}>
+          <strong>EXP_</strong>
+          <strong>Karol com 5K_</strong>
+        </footer>
       </div>
     )
   }
