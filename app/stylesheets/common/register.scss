@@ -110,7 +110,16 @@
       width: 100%;
       flex-direction: row;
       justify-content: space-between;
-      padding:70px 50px 0 50px;
+      padding:70px 50px 50px 50px;
+      
+      .formFieldSet {
+        width: 100%;
+        margin-top: 65px;
+
+        &:first-child {
+          margin-top: 0
+        }
+      }
 
       .formColl {
         display: flex;
@@ -169,6 +178,7 @@
 
       .inputData {
         width: 100%;
+        min-width: 120px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -190,6 +200,7 @@
           padding: 15px 25px;
           box-sizing: border-box;
           width: 100%;
+          outline: none;
         }
 
         .selectField {
@@ -286,13 +297,25 @@
       }
 
       .checkboxData {
-        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
+        position: relative;
 
         label {
           font-weight: normal;
+        }
+
+        &::after {
+          display: none;
+          width: 15px;
+          font-size: 12px;
+          line-height: 15px;
+          border-radius: 100%;
+          color: #FFFFFF;
+          background: #9a9a9a;
+          text-align: center;
+          margin: 0 0 4px 10px;
         }
 
         .checkboxField {
@@ -341,8 +364,70 @@
           }
         }
         
-        &.error-data {
-          
+        &.empty-data {
+          .checkboxField {
+            border-color: #b9092d;
+          }
+
+          &::after {
+            content: '!';
+            display: inline-block;
+          }
+        }
+      }
+
+      .btnNavTabs {
+        border: 1px solid #9a9a9a;
+        border-radius: 30px;
+        padding: 15px 25px;
+        box-sizing: border-box;
+        outline: none;
+
+        &.back {
+          float: left;
+        }
+
+        &.next {
+          float: right;
+          background: #64a70c;
+          border-color: #64a70c;
+          color: #FFF;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .mainRegister {
+    .tabContainer {
+      .formContainer {
+        flex-direction: column;
+        padding: 45px 25px 23px 25px;
+
+        .formColl.left {
+          max-width: 100%;
+          margin: 0 0 50px 0;
+        } 
+
+        .formColl.right {
+          max-width: 100%;
+        }
+
+        .formRow {
+          flex-direction: column;
+          margin-bottom: 0;
+        }
+
+        .inputData {
+          width: 100% !important;
+          margin: 0 0 15px 0;
+
+          input,
+          .selectField {
+            padding: 15px;
+          }
         }
       }
     }
